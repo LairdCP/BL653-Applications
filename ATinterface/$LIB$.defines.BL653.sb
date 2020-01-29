@@ -1,8 +1,8 @@
 //#############################################################################
-// LibFile : "$LIB$.defines.BL654.sb"
+// LibFile : "$LIB$.defines.BL653.sb"
 //#############################################################################
 //
-// It is very highly recommended that this file is NOT modified by non-Laird 
+// It is very highly recommended that this file is NOT modified by non-Laird
 // developers unless you request it to be updated in the master file maintained
 // by Laird
 //
@@ -14,7 +14,7 @@
 #define MAX_TXPOWER_DBM                           8
 #define MIN_TXPOWER_DBM                           -40
 
-#define DEFAULT_DEVICE_NAME                       "LAIRD BL654"
+#define DEFAULT_DEVICE_NAME                       "LAIRD BL653"
 
 #define BUTTON1                                   11
 #define BUTTON2                                   12

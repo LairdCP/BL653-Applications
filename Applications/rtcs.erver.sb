@@ -21,7 +21,7 @@
 // +++++                                                                      ++
 // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //
-// BL654 custom Real Time Clock (RTC) Service
+// BL653 custom Real Time Clock (RTC) Service
 //       This sample application implements the BLE RTC service with additional
 //       characteristics to allow setting the time remotely.
 //
@@ -293,7 +293,7 @@ I2CClose(I2Ch)
 //Start a BLE server
 rc = BleGAPSvcInit("CurrentTimeServer", 0, 256, 80000, 100000, 4000000, 0)
 AssertRC(rc, 277)
-rc = BleSvcRegDevInfo("Laird", "BL654", "", "1.0", "1.0", "", "", "")
+rc = BleSvcRegDevInfo("Laird", "BL653", "", "1.0", "1.0", "", "", "")
 AssertRC(rc, 279)
 
 //Create service

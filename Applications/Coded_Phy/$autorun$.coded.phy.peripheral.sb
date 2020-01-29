@@ -17,8 +17,8 @@
 //                                                                            ++
 //******************************************************************************
 //
-// CODED PHY Peripheral: this app demonstrates the use of CODED PHY on the BL654.
-// This is the peripheral app and should ONLY be used against another BL654 loaded
+// CODED PHY Peripheral: this app demonstrates the use of CODED PHY on the BL653.
+// This is the peripheral app and should ONLY be used against another BL653 loaded
 // with $autorun$.coded.phy.central.sb
 //
 //******************************************************************************
@@ -53,9 +53,9 @@ dim UARTBlocked : UARTBlocked = 0   // When set to 1 will not read data from the
 dim UartData$                       // Data from the UART waiting to be sent out
 
 
-dim nBleMaxPacketLength : nBleMaxPacketLength = 27  //Default maximum packet length on BL654
-dim nAttributeMTU       : nAttributeMTU = 23        //Default Maximum Transmission Unit on BL654
-dim nAttributeLength    : nAttributeLength = 20     //Default Attribute Data Length on BL654
+dim nBleMaxPacketLength : nBleMaxPacketLength = 27  //Default maximum packet length on BL65
+dim nAttributeMTU       : nAttributeMTU = 23        //Default Maximum Transmission Unit on BL65
+dim nAttributeLength    : nAttributeLength = 20     //Default Attribute Data Length on BL65
 dim nHighBandwidth      : nHighBandwidth = 0        //Default configuration, 1=High, 0=Low
 
 //******************************************************************************
@@ -123,7 +123,7 @@ FUNCTION BleStartAdverts()
     nMaxConnInterval = 7700
 
     // Register GAP service with device name and connection intervals
-    dim DevName$ : DevName$ = "LAIRD_BL654"
+    dim DevName$ : DevName$ = "LAIRD_BL653"
     rc = BleGapSvcInit(DevName$, 0, 0, nMinConnInterval, nMaxConnInterval, 4000000,  0)
 
     // Start Ble adverts

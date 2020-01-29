@@ -21,9 +21,9 @@
 // +++++                                                                      ++
 // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //
-// BL654 custom VSP service: This application will host a VSP service and allow
+// BL653 custom VSP service: This application will host a VSP service and allow
 //                           connections and communication similar to how VSP
-//                           bridge mode on the BL600/BL652/BL654/BT900 works.
+//                           bridge mode on the BL600/BL652/BL653/BL654/BT900 works.
 //
 //******************************************************************************
 

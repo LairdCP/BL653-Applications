@@ -41,12 +41,12 @@
 dim rc,addr$, nBandwidth
 
 //-------------------------------------------------------------------------------
-// This function is used to configure the BL654 to use high bandwidth
+// This function is used to configure the BL653 to use high bandwidth
 //-------------------------------------------------------------------------------
 FUNCTION BleHighBandwidth()
 
     // Get current bandwidth configuration
-	rc = NvCfgKeyGet(ENABLE_HIGH_BANDWIDTH_KEY_ID, nBandwidth)
+  rc = NvCfgKeyGet(ENABLE_HIGH_BANDWIDTH_KEY_ID, nBandwidth)
 
     // Check if these are the values needed to achieve DLE
     IF  (nBandwidth != BLE_ENABLE_HIGH_BANDWIDTH) THEN
@@ -91,9 +91,9 @@ rc = BleScanConfig(5,BLE_GAP_EXTENDED_SCANNING)
 // Start scanning
 rc = BleScanStart(10000, 0)
 if rc == 0 then
-	print "\nSuccessfully started scanning over CODED PHY"
-else 
-	print "\nFailed to scan with error code ";integer.h' rc
+  print "\nSuccessfully started scanning over CODED PHY"
+else
+  print "\nFailed to scan with error code ";integer.h' rc
 endif
 
 //------------------------------------------------------------------------------

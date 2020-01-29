@@ -17,7 +17,7 @@
 //                                                                            ++
 // ************************************************************************** ++
 // A smartBASIC application that exposes an AT Interface to control a VSP     ++
-// or non-VSP connection and advertise or scan that will run on the BL654     ++
+// or non-VSP connection and advertise or scan that will run on the BL653     ++
 // module with the following features:-                                       ++
 //    + AT+GCTM command enabled to query peer's gatt table schema             ++
 //    + If error handler called then module will reset and restart            ++
@@ -65,16 +65,16 @@
 //==============================================================================
 //The following can be modified by the customer to customise
 //==============================================================================
-#define ATI_RESPONSE_0                            "BL654"
+#define ATI_RESPONSE_0                            "BL653"
 #define ATI_RESPONSE_10                           "Laird,(c)2018"
 
 //Default device name
-#define DEFAULT_DEVICE_NAME                       "LAIRD BL654"
+#define DEFAULT_DEVICE_NAME                       "LAIRD BL653"
 
 //==============================================================================
 //The following can be modified by the customer to customise - but with care
 //==============================================================================
-//Maximum allowable size of strings (1024 maximum (for BL654)
+//Maximum allowable size of strings (1024 maximum (for BL653)
 #define MaxCmdStringSize                          144
 
 //Maximum allowable size of the advertised device name (additional characters will be clipped off)
@@ -101,7 +101,7 @@
 // Import module specific defines maintained by Laird
 //******************************************************************************
 #include "$LIB$.defines.Common.sb"
-#include "$LIB$.defines.BL654.sb"
+#include "$LIB$.defines.BL653.sb"
 
 //******************************************************************************
 // Initialisation values for sregister caches ...

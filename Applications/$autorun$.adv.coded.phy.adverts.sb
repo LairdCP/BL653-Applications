@@ -40,12 +40,12 @@
 dim rc,addr$, nBandwidth
 
 //-------------------------------------------------------------------------------
-// This function is used to configure the BL654 to use high bandwidth
+// This function is used to configure the BL653 to use high bandwidth
 //-------------------------------------------------------------------------------
 FUNCTION BleHighBandwidth()
 
     // Get current bandwidth configuration
-	rc = NvCfgKeyGet(ENABLE_HIGH_BANDWIDTH_KEY_ID, nBandwidth)
+  rc = NvCfgKeyGet(ENABLE_HIGH_BANDWIDTH_KEY_ID, nBandwidth)
 
     // Check if these are the values needed to achieve DLE
     IF  (nBandwidth != BLE_ENABLE_HIGH_BANDWIDTH) THEN
@@ -65,14 +65,14 @@ ENDFUNC 0
 rc = BleHighBandwidth()
 
 // Set the primary and secondary PHY to CODED PHY
-rc = BleAdvertConfig(4,BLE_GAP_CODED_PHY) 
+rc = BleAdvertConfig(4,BLE_GAP_CODED_PHY)
 rc = BleAdvertConfig(5,BLE_GAP_CODED_PHY)
 
 rc = BleAdvertStart(6,addr$,100,30000,0)
 if rc == 0 then
-	print "\nSuccessfully started advertising over CODED PHY"
-else 
-	print "\nFailed to advertise with error code ";integer.h' rc
+  print "\nSuccessfully started advertising over CODED PHY"
+else
+  print "\nFailed to advertise with error code ";integer.h' rc
 endif
 
 //------------------------------------------------------------------------------

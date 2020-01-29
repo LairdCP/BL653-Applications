@@ -49,7 +49,7 @@
 #define DEVICENAME_WRITABLE               1
 #define APPEARANCE                        BLE_APPEARANCE_GENERIC_THERMOMETER
 #define MANF_NAME                         "Laird Connectivity"
-#define MODELSTR                          "BL654"
+#define MODELSTR                          "BL653"
 #define SERIALNUM                         "12345"
 #define HWREV                             "HwRev1.0"
 #define SWREV                             "SwRev1.0"
@@ -105,7 +105,7 @@
         //Whether to require bonding or not
 #define REQUIRE_BONDING                   1
 
-	//SIO that the temperature sensor is connected to
+  //SIO that the temperature sensor is connected to
 #define GPIO_TEMP_SENSOR                  3
 
 #define MAX_HTM_LEN                       13
@@ -236,7 +236,7 @@
 #define BLE_EVBLEMSGID_ENCRYPTED                            18  //msgCtx = connection handle
 #define BLE_EVBLEMSGID_POWER_FAILURE_WARNING                19  //msgCtx = current supply voltage
 #define BLE_EVBLEMSGID_UNENCRYPTED                          20  //msgCtx = connection handle
-#define BLE_EVBLEMSGID_DEVICENAME_WRITE                     21  //msgCtx = connection handle 
+#define BLE_EVBLEMSGID_DEVICENAME_WRITE                     21  //msgCtx = connection handle
 
 //BLE Alert Levels
 #define BLE_ALERT_LEVEL_NO_ALERT                            0
@@ -413,7 +413,7 @@ endsub
 // -----------------------------------------------------------------------------
 // Bandgap = 600mv
 // Max Adc = 1024 (8-bit mode), 2048 (10-bit mode), 4096 (12-bit mode)
-// Gain scaled by 1/6 (Please see the BL654 manual for additional options)
+// Gain scaled by 1/6 (Please see the BL653 manual for additional options)
 //
 // Hence mV = (((adc/MaxADC) * Bandgap)*6)/1
 // refactoring for integer maths gives
@@ -774,7 +774,7 @@ function AddCharBatLevel(byval btlvl as integer, byval fNfy as integer) as integ
 #cmpif 0x04 :   dim mdAttr
 #cmpif 0x04 :   dim mdCccd
 #cmpif 0x04 :   dim mdSccd
-#cmpif 0x04 :   dim chProp 
+#cmpif 0x04 :   dim chProp
 #cmpif 0x04 :   dim format : format = 0x04            //uint8 - Unsigned 8-bit integer
 #cmpif 0x04 :   dim exponent : exponent = 0
 #cmpif 0x04 :   dim unit : unit = 0x27AD              //Percentage
@@ -844,7 +844,7 @@ function VerifyBattLevel(battLvl)
 #cmpif 0x04 :   elseif battLvl > 100 then
 #cmpif 0x04 :     battLvl = 100
 #cmpif 0x04 :   endif
-endfunc battLvl  
+endfunc battLvl
 
 //==============================================================================
 //==============================================================================
@@ -965,7 +965,7 @@ function RegHtsService()
   //Create the HTS Measurement Characteristic which has a UUID of 0x2A1C
   rc = AddCharHtsMeas()
   AssertRC(rc, 967)
-  
+
   //Commit Health Thermometer service to GATT table
   rc=BleServiceCommit(shHts)
   AssertRC(rc, 971)
@@ -1043,7 +1043,7 @@ sub InitTempSensor()
   //First byte selects the gain (default, 1/6 scaling)
   //Second byte selects the resolution (12-bit)
   //Third byte selects the acquisition time (default).
-  //See the BL654 extension manual for further details
+  //See the BL653 extension manual for further details
   rc = GPIOSETFUNCEX(GPIO_TEMP_SENSOR, 3, "\00\0C\00")
   AssertRC(rc, 1048)
 endsub

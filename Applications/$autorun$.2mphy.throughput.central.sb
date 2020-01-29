@@ -17,8 +17,8 @@
 //******************************************************************************
 //
 // 2MPHY Throughput central: this app demonstrates the use of Data Length Extension
-// feature and 2MPHY on the BL654. This is the central app and should ONLY be used
-// against another BL654 loaded with $autorun$.2mphy.throughput.peripheral.sb
+// feature and 2MPHY on the BL653. This is the central app and should ONLY be used
+// against another BL653 loaded with $autorun$.2mphy.throughput.peripheral.sb
 //
 //******************************************************************************
 //
@@ -36,7 +36,7 @@
 #define BLE_1M_PHY                      1
 #define BLE_2M_PHY                      2
 
-// Hardcoded GATT attributes of remote BL654 running $autorun$.dle.peripheral.sb
+// Hardcoded GATT attributes of remote BL653 running $autorun$.dle.peripheral.sb
 #define REMOTE_RX_VALUE_HANDLE          21
 #define REMOTE_TX_VALUE_HANDLE          23
 #define REMOTE_MODEMIN_VALUE_HANDLE     18
@@ -62,9 +62,9 @@ dim BufferFull : BufferFull = 0     //Buffer full
 dim u$ : u$ = ""                    //UART read buffer
 dim RecBuf$ : RecBuf$ = ""          //VSP read buffer
 dim ModemStat : ModemStat = 1       //Modem in status
-dim nBleMaxPacketLength             //Default maximum packet length on BL654
-dim nAttributeMTU                   //Default Maximum Transmission Unit on BL654
-dim nAttributeLength                //Default Attribute Data Length on BL654
+dim nBleMaxPacketLength             //Default maximum packet length on BL653
+dim nAttributeMTU                   //Default Maximum Transmission Unit on BL653
+dim nAttributeLength                //Default Attribute Data Length on BL653
 
 //******************************************************************************
 // Initialise Global Variable
@@ -76,9 +76,9 @@ MOHandle = REMOTE_MODEMOUT_VALUE_HANDLE
 TXCCCDHandle = REMOTE_TX_CCCD_HANDLE
 MOCCCDHandle = REMOTE_MODEMOUT_CCCD_HANDLE
 
-nBleMaxPacketLength = 27            // The default maximum packet length on BL654 is 27
-nAttributeMTU = 23                  // The default ATT_MTU on the BL654 is 23
-nAttributeLength = 20               // The default attribute length on the BL654 is 20
+nBleMaxPacketLength = 27            // The default maximum packet length on BL653 is 27
+nAttributeMTU = 23                  // The default ATT_MTU on the BL653 is 23
+nAttributeLength = 20               // The default attribute length on the BL653 is 20
 
 //******************************************************************************
 // Function and Subroutine definitions
@@ -116,7 +116,7 @@ ENDSUB
 #define BLE_ENABLE_HIGH_BANDWIDTH               1      // 0: 3 packets/interval (default), 1: 6 packets/interval
 
 //-------------------------------------------------------------------------------
-// This function is used to configure the BL654 to use the maximum Attribute
+// This function is used to configure the BL653 to use the maximum Attribute
 // Transmission Unit (MTU), and the maximum packet length
 //-------------------------------------------------------------------------------
 FUNCTION DataLengthExtension()
@@ -128,9 +128,9 @@ FUNCTION DataLengthExtension()
 
     // Check if these are the values needed to achieve DLE
     IF  (nAttributeMTU != ATTRIBUTE_MTU_MAXIMUM) || (nBleMaxPacketLength != BLE_MAX_PACKET_LENGTH) THEN
-        // Change the Attribute MTU to be the maximum allowed by the BL654 (247)
+        // Change the Attribute MTU to be the maximum allowed by the BL653 (247)
         rc = NvCfgKeySet(ATTRIBUTE_MTU_KEY_ID, ATTRIBUTE_MTU_MAXIMUM)
-        // Change the Attribute Data Length to be the maximum allowed by the BL654 (244)
+        // Change the Attribute Data Length to be the maximum allowed by the BL653 (244)
         rc = NvCfgKeySet(ATTRIBUTE_DATA_LENGTH_KEY_ID, ATTRIBUTE_DATA_LENGTH_MAXIMUM)
         // Allow data to be thrown in messages (i.e. Use EVATTRNOTIFYEX instead of EVATTRNOTIFY)
         rc = NvCfgKeySet(USE_STRINT_IN_EVENTS_KEY_ID, USE_STRING_IN_EVENTS)

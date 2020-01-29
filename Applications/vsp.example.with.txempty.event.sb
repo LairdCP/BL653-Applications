@@ -100,7 +100,7 @@
 #define DEVICENAME_WRITABLE                  1
 #define APPEARANCE                           BLE_APPEARANCE_GENERIC_TAG
 #define MANF_NAME                            "Laird Connectivity"
-#define MODELSTR                             "BL654"
+#define MODELSTR                             "BL653"
 #define SERIALNUM                            "12345"
 #define HWREV                                "HwRev1.0"
 #define SWREV                                "SwRev1.0"
@@ -292,7 +292,7 @@
 #define BLE_EVBLEMSGID_ENCRYPTED                            18  //msgCtx = connection handle
 #define BLE_EVBLEMSGID_POWER_FAILURE_WARNING                19  //msgCtx = current supply voltage
 #define BLE_EVBLEMSGID_UNENCRYPTED                          20  //msgCtx = connection handle
-#define BLE_EVBLEMSGID_DEVICENAME_WRITE                     21  //msgCtx = connection handle 
+#define BLE_EVBLEMSGID_DEVICENAME_WRITE                     21  //msgCtx = connection handle
 
 //BLE Alert Levels
 #define BLE_ALERT_LEVEL_NO_ALERT                            0

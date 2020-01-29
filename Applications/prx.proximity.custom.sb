@@ -103,7 +103,7 @@
 #define DEVICENAME_WRITABLE                  1
 #define APPEARANCE                           BLE_APPEARANCE_GENERIC_KEYRING
 #define MANF_NAME                            "Laird Connectivity"
-#define MODELSTR                             "BL654"
+#define MODELSTR                             "BL653"
 #define SERIALNUM                            "12345"
 #define HWREV                                "HwRev1.0"
 #define SWREV                                "SwRev1.0"
@@ -301,7 +301,7 @@
 #define BLE_EVBLEMSGID_ENCRYPTED                            18  //msgCtx = connection handle
 #define BLE_EVBLEMSGID_POWER_FAILURE_WARNING                19  //msgCtx = current supply voltage
 #define BLE_EVBLEMSGID_UNENCRYPTED                          20  //msgCtx = connection handle
-#define BLE_EVBLEMSGID_DEVICENAME_WRITE                     21  //msgCtx = connection handle 
+#define BLE_EVBLEMSGID_DEVICENAME_WRITE                     21  //msgCtx = connection handle
 
 //BLE Alert Levels
 #define BLE_ALERT_LEVEL_NO_ALERT                            0
@@ -649,7 +649,7 @@ sub AdvMngrOnBleMsg(BYVAL nMsgId AS INTEGER, BYVAL nCtx AS INTEGER)
   case BLE_EVBLEMSGID_DISCONNECT
     //Restart advertising
     rc=StartAdverts(-1)
-    AssertRC(rc, 654)
+    AssertRC(rc, 653)
 
   case else
     //Do nothing
@@ -862,7 +862,7 @@ function AddCharBatLevel(byval btlvl as integer, byval fNfy as integer) as integ
 #cmpif 0x04 :   dim mdAttr
 #cmpif 0x04 :   dim mdCccd
 #cmpif 0x04 :   dim mdSccd
-#cmpif 0x04 :   dim chProp 
+#cmpif 0x04 :   dim chProp
 #cmpif 0x04 :   dim format : format = 0x04            //uint8 - Unsigned 8-bit integer
 #cmpif 0x04 :   dim exponent : exponent = 0
 #cmpif 0x04 :   dim unit : unit = 0x27AD              //Percentage
@@ -934,7 +934,7 @@ function VerifyBattLevel(battLvl)
 #cmpif 0x04 :   elseif battLvl > 100 then
 #cmpif 0x04 :     battLvl = 100
 #cmpif 0x04 :   endif
-endfunc battLvl  
+endfunc battLvl
 
 
 //==============================================================================
@@ -1064,7 +1064,7 @@ function RegIasService() as integer
   //Create the Alert Level Characteristic which has a UUID of 0x2A06
   rc = AddIasCharAlertLevel()
   AssertRC(rc, 1068)
-  
+
   //Commit Immediate Alert service to GATT table
   rc=BleServiceCommit(shIas)
   AssertRC(rc, 1072)
@@ -1207,7 +1207,7 @@ function RegLlsService() as integer
   //Create the alert Level Characteristic which has a UUID of 0x2A06
   rc = AddLlsCharAlertLevel()
   AssertRC(rc, 1211)
-  
+
   //Commit link loss service to GATT table
   rc=BleServiceCommit(shLls)
   AssertRC(rc, 1215)
@@ -1367,7 +1367,7 @@ function RegTpsService() as integer
   //Create the Tx Power  Characteristic which has a UUID of 0x2A07
   rc = AddCharTxPower()
   AssertRC(rc, 1371)
-  
+
   //Commit Tx Power service to GATT table
   rc=BleServiceCommit(shTps)
   AssertRC(rc, 1375)

@@ -86,7 +86,7 @@
 #define DEVICENAME_WRITABLE               1
 #define APPEARANCE                        BLE_APPEARANCE_GENERIC_HEART_RATE_SENSOR
 #define MANF_NAME                         "Laird Connectivity"
-#define MODELSTR                          "BL654"
+#define MODELSTR                          "BL653"
 #define SERIALNUM                         "12345"
 #define HWREV                             "HwRev1.0"
 #define SWREV                             "SwRev1.0"
@@ -225,7 +225,7 @@
 #define BLE_EVBLEMSGID_ENCRYPTED                          18  //msgCtx = connection handle
 #define BLE_EVBLEMSGID_POWER_FAILURE_WARNING              19  //msgCtx = current supply voltage
 #define BLE_EVBLEMSGID_UNENCRYPTED                        20  //msgCtx = connection handle
-#define BLE_EVBLEMSGID_DEVICENAME_WRITE                   21  //msgCtx = connection handle 
+#define BLE_EVBLEMSGID_DEVICENAME_WRITE                   21  //msgCtx = connection handle
 
 //Pairing i/o capability
 #define BLE_IOCAPABILITY_NONE                             0
@@ -651,7 +651,7 @@ endfunc rc
 function SecSetIoCap(ioCap as integer) as integer
   dim rc
   rc = BleSecMngrIocap(iocap)
-  AssertRC(rc, 654)
+  AssertRC(rc, 653)
 endfunc rc
 
 //==============================================================================
@@ -738,7 +738,7 @@ function AddCharBatLevel(byval btlvl as integer, byval fNfy as integer) as integ
 #cmpif 0x04 :   dim mdAttr
 #cmpif 0x04 :   dim mdCccd
 #cmpif 0x04 :   dim mdSccd
-#cmpif 0x04 :   dim chProp 
+#cmpif 0x04 :   dim chProp
 #cmpif 0x04 :   dim format : format = 0x04            //uint8 - Unsigned 8-bit integer
 #cmpif 0x04 :   dim exponent : exponent = 0
 #cmpif 0x04 :   dim unit : unit = 0x27AD              //Percentage
@@ -810,7 +810,7 @@ function VerifyBattLevel(battLvl)
 #cmpif 0x04 :   elseif battLvl > 100 then
 #cmpif 0x04 :     battLvl = 100
 #cmpif 0x04 :   endif
-endfunc battLvl  
+endfunc battLvl
 
 
 //==============================================================================
@@ -996,7 +996,7 @@ function RegHrsService() as integer
   //Create the XXXX Characteristic which has a UUID of YYYYYY
   rc = AddCharHrsSensLoc()
   AssertRC(rc, 998)
-  
+
   //Commit Heart Rate service to GATT table
   rc=BleServiceCommit(shHrs)
   AssertRC(rc, 1002)
@@ -1187,7 +1187,7 @@ endsub
 //==============================================================================
 //==============================================================================
 sub GetDeviceName()
-  dn$ = BleGetDeviceName$()  
+  dn$ = BleGetDeviceName$()
   if (ENABLE_DEBUG_PRINTS!=0) then
     print "Device name = ";dn$;"\n"
   endif

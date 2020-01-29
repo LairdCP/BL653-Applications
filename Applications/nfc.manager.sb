@@ -21,7 +21,7 @@
 // +++++                                                                      ++
 // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //
-// NFC manager for BL654
+// NFC manager for BL653
 //   Version 0.92
 //
 // This app provides for a command interface over the uart and the protocol is
@@ -54,7 +54,7 @@
 // -----------------------------------------------------------------------------
 // nfc enable #INTstate#
 //   - Enables or disables the NFC field for reading by other devices:
-//   -   0: Disable NFC field 
+//   -   0: Disable NFC field
 //   -   1: Enable NFC field
 //   - This needs to be used after tags have been created and committed.
 //
@@ -64,8 +64,8 @@
 //   -   0: Disable NFC pin functionality
 //   -   1: Enable NFC pin functionality
 //   - Please note: If NFC pin functionality is disabled, a JLINK reflash of the
-//   - BL654 firmware will be required to re-enable the NFC pin functionality.
-//   - See the BL654 manual for more information.
+//   - BL653 firmware will be required to re-enable the NFC pin functionality.
+//   - See the BL653 manual for more information.
 //
 // -----------------------------------------------------------------------------
 // nfc tag add
@@ -579,7 +579,7 @@ endfunc 1
 //-------------------------------------------------------------------------
 //#CMD#//  nfc open                                   - Open NFC
 //#CMD#//  nfc close                                  - Close NFC
-//#CMD#//  nfc hardware    #INTstate#                 - Will enable or disable NFC on the multifunction pins: 1 = enable, 0 = disable. Please note if NFC is disabled, the BL654 firmware will need to be reflashed using the JLINK interface (UART interface will not enable it) to re-enable the NFC pins
+//#CMD#//  nfc hardware    #INTstate#                 - Will enable or disable NFC on the multifunction pins: 1 = enable, 0 = disable. Please note if NFC is disabled, the BL653 firmware will need to be reflashed using the JLINK interface (UART interface will not enable it) to re-enable the NFC pins
 //#CMD#//  nfc tag add                                - Add a new tag (by default TEXT with payload 'Change Me!')
 //#CMD#//  nfc tag remove  #INTindex#                 - Delete NDEF record specified by handle (deletes all data and handle)
 //#CMD#//  nfc tag type    #INTindex# #STRtype#       - Sets the NDEF record type (can be Text, URL, WApp, AApp)

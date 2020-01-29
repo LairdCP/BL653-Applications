@@ -21,7 +21,7 @@
 // +++++                                                                      ++
 // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //
-// BL654 custom VSP service: This application will connect to a VSP service and
+// BL653 custom VSP service: This application will connect to a VSP service and
 //                           allow communication to that server from the UART.
 //
 //******************************************************************************
@@ -123,8 +123,8 @@
 // *Instructions*
 //      1. Set BTAddr to the BT Address of the peer device you want to connect to by default
 //      2. Set CONNECT_ON_STARTUP to 1 to automatically connect
-//      3. Start a VSP server on a BT900/BL600/BL652/BL654 with the other VSP application (on github) or by bridging SIO_19 to GND to enable command VSP mode (bridge SIO_7 to VCC on a BL600 development kit)
-//      4. Download and run this application to a BT900/BL652/BL654 and it will automatically connect to the VSP server
+//      3. Start a VSP server on a BT900/BL600/BL652/BL653/BL654 with the other VSP application (on github) or by bridging SIO_19 to GND to enable command VSP mode (bridge SIO_7 to VCC on a BL600 development kit)
+//      4. Download and run this application to a BT900/BL652/BL653/BL654 and it will automatically connect to the VSP server
 //
 //
 // ::Note::

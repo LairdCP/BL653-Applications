@@ -292,7 +292,7 @@ rc = NFC_AddWP(ndefHandle, "60332576-f8e3-4790-9677-9659bcde8a68")
 rc = NFC_AddAndroid(ndefHandle, "com.lairdtech.lairdtoolkit")
 
 //Add text
-rc = NFC_AddText(ndefHandle, "NFC demo application on the Laird BL654 module")
+rc = NFC_AddText(ndefHandle, "NFC demo application on the Laird BL653 module")
 
 //Add a URL
 rc = NFC_AddURL(ndefHandle, "http://www.lairdtech.com")

@@ -96,7 +96,7 @@
 #define DEVICENAME_WRITABLE                         1
 #define APPEARANCE                                  BLE_APPEARANCE_GENERIC_BLOOD_PRESSURE
 #define MANF_NAME                                   "Laird Connectivity"
-#define MODELSTR                                    "BL654"
+#define MODELSTR                                    "BL653"
 #define SERIALNUM                                   "12345"
 #define HWREV                                       "HwRev1.0"
 #define SWREV                                       "SwRev1.0"
@@ -230,7 +230,7 @@
 #define BLE_EVBLEMSGID_ENCRYPTED                    18  //msgCtx = connection handle
 #define BLE_EVBLEMSGID_POWER_FAILURE_WARNING        19  //msgCtx = current supply voltage
 #define BLE_EVBLEMSGID_UNENCRYPTED                  20  //msgCtx = connection handle
-#define BLE_EVBLEMSGID_DEVICENAME_WRITE             21  //msgCtx = connection handle 
+#define BLE_EVBLEMSGID_DEVICENAME_WRITE             21  //msgCtx = connection handle
 
 //Blood Pressure Feature Bits
 #define BLE_BPS_FEATURE_BODY_MOVEMENT_BIT           1
@@ -753,7 +753,7 @@ function AddCharBatLevel(byval btlvl as integer, byval fNfy as integer) as integ
   dim mdAttr
   dim mdCccd
   dim mdSccd
-  dim chProp 
+  dim chProp
   dim format : format = 0x04            //uint8 - Unsigned 8-bit integer
   dim exponent : exponent = 0
   dim unit : unit = 0x27AD              //Percentage
@@ -803,7 +803,7 @@ function RegBatService(byval btlvl as integer, byval fNfy as integer) as integer
   //Create the Battery Level Characteristic which has a UUID of 0x2A19
   rc = AddCharBatLevel(btlvl,fNfy)
   AssertRC(rc, 805)
-  
+
   //Commit battery service to GATT table
   rc=BleServiceCommit(shBat)
   AssertRC(rc, 809)
@@ -832,7 +832,7 @@ function VerifyBattLevel(battLvl)
   elseif battLvl > 100 then
     battLvl = 100
   endif
-endfunc battLvl  
+endfunc battLvl
 
 
 //==============================================================================
@@ -1011,7 +1011,7 @@ function RegBpsService() as integer
   //Create the Blood Pressure Feature Characteristic which has a UUID of 0x2A49
   rc = AddCharBpsFeature()
   AssertRC(rc, 1013)
-  
+
   //Commit Health Thermometer service to GATT table
   rc=BleServiceCommit(shBps)
   AssertRC(rc, 1017)

@@ -18,8 +18,8 @@
 //******************************************************************************
 //
 // 2MPHY Throughput peripheral: this app demonstrates the use of Data Length Extension
-// feature and 2MPHY on the BL654. This is the peripheral app and should ONLY be used
-// against another BL654 loaded with $autorun$.2mphy.throughput.central.sb
+// feature and 2MPHY on the BL653. This is the peripheral app and should ONLY be used
+// against another BL653 loaded with $autorun$.2mphy.throughput.central.sb
 //
 //******************************************************************************
 //
@@ -52,9 +52,9 @@ dim UARTBlocked : UARTBlocked = 0   // When set to 1 will not read data from the
 dim UartData$                       // Data from the UART waiting to be sent out
 
 
-dim nBleMaxPacketLength : nBleMaxPacketLength = 27  //Default maximum packet length on BL654
-dim nAttributeMTU       : nAttributeMTU = 23        //Default Maximum Transmission Unit on BL654
-dim nAttributeLength    : nAttributeLength = 20     //Default Attribute Data Length on BL654
+dim nBleMaxPacketLength : nBleMaxPacketLength = 27  //Default maximum packet length on BL653
+dim nAttributeMTU       : nAttributeMTU = 23        //Default Maximum Transmission Unit on BL653
+dim nAttributeLength    : nAttributeLength = 20     //Default Attribute Data Length on BL653
 
 //******************************************************************************
 // Initialise Global Variable
@@ -97,7 +97,7 @@ endsub
 #define BLE_ENABLE_HIGH_BANDWIDTH               1   // 0: 3 packets/interval (default), 1: 6 packets/interval
 
 //-------------------------------------------------------------------------------
-// This function is used to configure the BL654 to use the maximum Attribute
+// This function is used to configure the BL653 to use the maximum Attribute
 // Transmission Unit (MTU), maximum Attribute Data Length, and the maximum
 // packet length
 //-------------------------------------------------------------------------------
@@ -109,10 +109,10 @@ FUNCTION DataLengthExtension()
     rc = NvCfgKeyGet(BLE_MAX_PACKET_LENGTH_KEY_ID, nBleMaxPacketLength)
 
     // Check if these are the values needed to achieve DLE
-    IF  (nAttributeMTU != ATTRIBUTE_MTU_MAXIMUM) || (nAttributeLength != ATTRIBUTE_DATA_LENGTH_MAXIMUM)	|| (nBleMaxPacketLength != BLE_MAX_PACKET_LENGTH) THEN
-        // Change the Attribute MTU to be the maximum allowed by the BL654 (247)
+    IF  (nAttributeMTU != ATTRIBUTE_MTU_MAXIMUM) || (nAttributeLength != ATTRIBUTE_DATA_LENGTH_MAXIMUM) || (nBleMaxPacketLength != BLE_MAX_PACKET_LENGTH) THEN
+        // Change the Attribute MTU to be the maximum allowed by the BL653 (247)
         rc = NvCfgKeySet(ATTRIBUTE_MTU_KEY_ID, ATTRIBUTE_MTU_MAXIMUM)
-        // Change the Attribute Data Length to be the maximum allowed by the BL654 (244)
+        // Change the Attribute Data Length to be the maximum allowed by the BL653 (244)
         rc = NvCfgKeySet(ATTRIBUTE_DATA_LENGTH_KEY_ID, ATTRIBUTE_DATA_LENGTH_MAXIMUM)
         // Allow data to be thrown in messages (i.e. Use EVATTRNOTIFYEX instead of EVATTRNOTIFY)
         rc = NvCfgKeySet(USE_STRINT_IN_EVENTS_KEY_ID, USE_STRING_IN_EVENTS)
@@ -143,7 +143,7 @@ ELSE
 ENDIF
 
     // Register GAP service with device name and connection intervals
-    dim DevName$ : DevName$ = "LAIRD_BL654"
+    dim DevName$ : DevName$ = "LAIRD_BL653"
     rc = BleGapSvcInit(DevName$, 0, 0, nMinConnInterval, nMaxConnInterval, 4000000,  0)
 
     // Start Ble adverts

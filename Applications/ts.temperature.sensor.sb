@@ -32,7 +32,7 @@
         //The temperature sensor is polled this timeout
 #define TEMPERATURE_POLL_MS     (2000)
 
-	//SIO that the temperature sensor is connected to
+  //SIO that the temperature sensor is connected to
 #define GPIO_TEMP_SENSOR        3
 
 //******************************************************************************
@@ -88,7 +88,7 @@ sub InitTempSensor()
   //First byte selects the gain (default, 1/6 scaling)
   //Second byte selects the resolution (12-bit)
   //Third byte selects the acquisition time (default).
-  //See the BL654 extension manual for further details
+  //See the BL653 extension manual for further details
   rc = GPIOSETFUNCEX(GPIO_TEMP_SENSOR, 3, "\00\0C\00")
   AssertRC(rc, 93)
 endsub
@@ -96,7 +96,7 @@ endsub
 // -----------------------------------------------------------------------------
 // Bandgap = 600mv
 // Max Adc = 1024 (8-bit mode), 2048 (10-bit mode), 4096 (12-bit mode)
-// Gain scaled by 1/6 (Please see the BL654 manual for additional options)
+// Gain scaled by 1/6 (Please see the BL653 manual for additional options)
 //
 // Hence mV = (((adc/MaxADC) * Bandgap)*6)/1
 // refactoring for integer maths gives

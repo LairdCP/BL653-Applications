@@ -57,7 +57,7 @@ dim rc          //Declare rc as a variable (result code)
 // Equivalent to main() in C
 //******************************************************************************
 
-//PRINT "To get the expected low power consumption please remove jumpers J3 and J4 on your DVK-BL654 board."
+//PRINT "To get the expected low power consumption please remove jumpers J3 and J4 on your DVK-BL653 board."
 
 rc=gpiosetfunc(13,2,0)  //Sets LED 1 to digital out low
 rc=gpiosetfunc(14,2,0)  //Sets LED 2 to digital out low

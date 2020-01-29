@@ -37,7 +37,7 @@
 //
 //     tx nnnn           - Set tx power (decimal) normal
 //     tp nnnn           - Set tx power (decimal) while pairing
-// 
+//
 //     fg n              - Set advertising discoverability mode - n is 0 to 3 (see BLE_DISCOVERABILITY_xxx )
 //     ai nnnn           - Set advertising interval in milliseconds
 //     at nnnn           - Set advertising timeout in milliseconds
@@ -96,7 +96,7 @@
 #define DEVICENAME_WRITABLE               1
 #define APPEARANCE                        BLE_APPEARANCE_GENERIC_THERMOMETER
 #define MANF_NAME                         "Laird Connectivity"
-#define MODELSTR                          "BL654"
+#define MODELSTR                          "BL653"
 #define SERIALNUM                         "12345"
 #define HWREV                             "HwRev1.0"
 #define SWREV                             "SwRev1.0"
@@ -281,7 +281,7 @@
 #define BLE_EVBLEMSGID_ENCRYPTED                            18  //msgCtx = connection handle
 #define BLE_EVBLEMSGID_POWER_FAILURE_WARNING                19  //msgCtx = current supply voltage
 #define BLE_EVBLEMSGID_UNENCRYPTED                          20  //msgCtx = connection handle
-#define BLE_EVBLEMSGID_DEVICENAME_WRITE                     21  //msgCtx = connection handle 
+#define BLE_EVBLEMSGID_DEVICENAME_WRITE                     21  //msgCtx = connection handle
 
 //BLE Alert Levels
 #define BLE_ALERT_LEVEL_NO_ALERT                            0
@@ -813,7 +813,7 @@ function AddCharBatLevel(byval btlvl as integer, byval fNfy as integer) as integ
 #cmpif 0x04 :   dim mdAttr
 #cmpif 0x04 :   dim mdCccd
 #cmpif 0x04 :   dim mdSccd
-#cmpif 0x04 :   dim chProp 
+#cmpif 0x04 :   dim chProp
 #cmpif 0x04 :   dim format : format = 0x04            //uint8 - Unsigned 8-bit integer
 #cmpif 0x04 :   dim exponent : exponent = 0
 #cmpif 0x04 :   dim unit : unit = 0x27AD              //Percentage
@@ -885,7 +885,7 @@ function VerifyBattLevel(battLvl)
 #cmpif 0x04 :   elseif battLvl > 100 then
 #cmpif 0x04 :     battLvl = 100
 #cmpif 0x04 :   endif
-endfunc battLvl  
+endfunc battLvl
 
 
 //==============================================================================
@@ -1013,7 +1013,7 @@ function RegHtsService()
   //Create the HTS Measurement Characteristic which has a UUID of 0x2A1C
   rc = AddCharHtsMeas()
   AssertRC(rc, 1015)
-  
+
   //Commit Health Thermometer service to GATT table
   rc=BleServiceCommit(shHts)
   AssertRC(rc, 1019)
@@ -1319,10 +1319,10 @@ function OnUartCmd(stData$,datalen) as integer
 
     elseif strcmp(stRS$,"tp ")==0 then     //Set tx power (decimal) while pairing
       rc = BleTxPwrWhilePairing(strvaldec(stData$))
-      
+
     elseif strcmp(stRS$,"tx ")==0 then     //Set tx power (decimal) while normal
       rc = BleTxPowerSet(strvaldec(stData$))
-      
+
     //************ connection related commands ************************************
 
     elseif  strcmp(stRS$,"in ")==0 then  //Minimum interval (us) for conn parameters

@@ -25,7 +25,7 @@
 // +++++                                                                      ++
 // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //
-// This file is included in "$autorun$.low.power.vsp.uart.bridge.sb" and 
+// This file is included in "$autorun$.low.power.vsp.uart.bridge.sb" and
 // provides custom behavior for the low power vsp to uart bridge. This file
 // contains function and subroutines that are depicted in red colour in
 // the state machine diagram shown in "LowPowerVspUartBridge.flo"
@@ -46,8 +46,8 @@
 // no ble connection and the character ^ is ised when there is a connection so
 // a useful way to infer connection status.
 // Also \n is the linefeed chr (0x0A) and \r is the carriage return chr (0x0D)
-// 
-// In addition, the functionality is customised for the BL654 devkit so that
+//
+// In addition, the functionality is customised for the BL653 devkit so that
 // LED1 is configured to be ON when the UART is open and OFF when closed and
 // LED2 is configured to be ON when there is BLE connection
 //
@@ -71,7 +71,7 @@
 // ------------------------------------------------------
 //
 // Higher 16 bits used for feature set
-//   0x00000000 : 
+//   0x00000000 :
 //
 // Lower 16 bits used for debugging
 //   0x00000001 : Enable debugging messages
@@ -101,12 +101,12 @@
 
 
 //Size of VSP buffers (0 uses default)
-#define VSP_TX_BUFLEN                                 512  
-#define VSP_RX_BUFLEN                                 512  
+#define VSP_TX_BUFLEN                                 512
+#define VSP_RX_BUFLEN                                 512
 
 //Size of Uart buffers (0 uses default)
-#define UART_TX_BUFLEN                                512  
-#define UART_RX_BUFLEN                                512  
+#define UART_TX_BUFLEN                                512
+#define UART_RX_BUFLEN                                512
 
 //Baudrate to use when uart is open
 #define UART_BAUDRATE                                 115200
@@ -131,7 +131,7 @@
 //Advertise type (0==Connectable, 1==do_not_use,  2&3 ==Not Connectable)
 #define ADVERT_TYPE                                   0
 //Advertising interval -- higher the number, lower the current consumption
-//Recommended range 20 to 10000 
+//Recommended range 20 to 10000
 #define ADV_INTERVAL_MS                               200
 //Advertise timeout (0==forever)
 #define ADV_TIMEOUT_MS                                0
@@ -146,17 +146,17 @@
 //wait for the last character to be sent out
 #define UART_MAX_CHARACTER_TIMEOUT_MS                 20
 
-//Input Pin which is toggled to re-open the uart  (NOTE: This default is for BL654)
+//Input Pin which is toggled to re-open the uart  (NOTE: This default is for BL653)
 //State of input pin to wake up
 //------
-#define UART_REOPEN_SIONUM                            UART_SIONUM_RX    //UART_RX (on BL654)
+#define UART_REOPEN_SIONUM                            UART_SIONUM_RX    //UART_RX (on BL653)
 #define UART_REOPEN_STATE_CHANGE                      UART_REOPEN_TRANSITION_LO_to_HI
 //------
-//#define UART_REOPEN_SIONUM                            UART_SIONUM_CTS    //UART_CTS (on BL654)
+//#define UART_REOPEN_SIONUM                            UART_SIONUM_CTS    //UART_CTS (on BL653)
 //#define UART_REOPEN_STATE_CHANGE                      UART_REOPEN_TRANSITION_HI_to_LO
 //------
     //=========================================================================
-    //Note: On BL654,if you want to use UART_CTS (driven by Host's RTS) to wakeup then
+    //Note: On BL653,if you want to use UART_CTS (driven by Host's RTS) to wakeup then
     //      UART_REOPEN_SIONUM        ==  UART_SIONUM_CTS
     //      UART_REOPEN_STATE_CHANGE  ==  UART_REOPEN_TRANSITION_HI_to_LO
     // So comment and uncomment the appropriate 2 lines above
@@ -210,7 +210,7 @@
 #cmpif 0x00000003 : endsub
 
 //------------------------------------------------------------------------------
-#cmpif 0x00000004 : dim dbgmsg$  //use this to create a message for DbgMsg() 
+#cmpif 0x00000004 : dim dbgmsg$  //use this to create a message for DbgMsg()
 //------------------------------------------------------------------------------
 #cmpif 0x00000004 : sub DbgMsg(byval msg$ as string)
 #cmpif 0x00000004 :     print "\n## ";msg$
@@ -226,7 +226,7 @@
 //------------------------------------------------------------------------------
 #cmpif 0x00000004 : sub DbgMsgVal$(byval msg$ as string, byref vl$ as string)
 #cmpif 0x00000004 :     print "\n## ";msg$;" ";vl$
-#cmpif 0x00000004 : endsub 
+#cmpif 0x00000004 : endsub
 
 //******************************************************************************
 // Custom Global Variable Declarations
@@ -299,15 +299,15 @@ endfunc 0 // 0 means allow closure of uart
 //------------------------------------------------------------------------------
 sub OnUartClose()
   // hVspConn will be INVALID_CONN_HANDLE if not in a connection
-  
+
   //****************USING LED1 TO INDICATE STATE OF UART OPEN/CLOSE***********
   gpiowrite(13,0)  //Sets LED 1 to low
-  //**************************************************************************  
-  
+  //**************************************************************************
+
 endsub
 
 //------------------------------------------------------------------------------
-// Called on uart is opened. The parameter ==0 when no connection, and 1 when 
+// Called on uart is opened. The parameter ==0 when no connection, and 1 when
 // in a BLE connected state
 //------------------------------------------------------------------------------
 sub OnUartOpen(fConn)
@@ -317,16 +317,16 @@ sub OnUartOpen(fConn)
 
     //****************USING LED1 TO INDICATE STATE OF UART OPEN/CLOSE***********
     gpiowrite(13,1)  //Sets LED 1 to high
-    //**************************************************************************  
-  
+    //**************************************************************************
+
   else
     print MSG_UART_OPEN_NOCONN  //!OP!
 
     //****************USING LED1 TO INDICATE STATE OF UART OPEN/CLOSE***********
     gpiowrite(13,1)  //Sets LED 1 to high
-    //**************************************************************************  
+    //**************************************************************************
   endif
-  
+
 endsub
 
 //------------------------------------------------------------------------------
@@ -344,7 +344,7 @@ endsub
 //------------------------------------------------------------------------------
 sub OnConnect(hConn,intrvl,sprvto,slat)
   print MSG_CONNECT   //^CN^
-  
+
   //****************USING LED2 TO INDICATE CONNECTION STATE*******************
   gpiowrite(14,1)  //Sets LED 2 to high
   //**************************************************************************
@@ -357,11 +357,11 @@ endsub
 //   sprvto = link supervision timeeout in microseconds
 //   slat   = slave latency
 //------------------------------------------------------------------------------
-sub OnConnParmChange(hConn,intrvl,sprvto,slat)      
+sub OnConnParmChange(hConn,intrvl,sprvto,slat)
   #cmpif 0x00000008 : print "\n## Conn :: Interval=";intrvl;",Supervision Tout=";sprvto;",Slave Latency=";slat
 
   print MSG_CONN_PARM_START;intrvl;",";sprvto;",";slat;MSG_CONN_PARM_END  //^PA x,y,z^
-  
+
 endsub
 
 //------------------------------------------------------------------------------
@@ -369,7 +369,7 @@ endsub
 //------------------------------------------------------------------------------
 sub OnDisconnection(hConn)
   print MSG_DISCONNECT   //!DI!
-  
+
   //****************USING LED2 TO INDICATE CONNECTION STATE*******************
   gpiowrite(14,0)  //Sets LED 2 to low
   //**************************************************************************

@@ -29,7 +29,7 @@
 // serial port profile so that data can be transparently relayed from a host
 // connected to the uart and ble connection and vice versa.
 //
-// In addition if there is no activity, while the BLE connection is up, the 
+// In addition if there is no activity, while the BLE connection is up, the
 // uart is closed but with the RX line configured for a high to low transition
 // detection so that it can be opened. This comes at the expense of the first
 // uncoming uart character potentially lost (depending on baudrate).
@@ -39,56 +39,56 @@
 // functions (callbacks) are called that can be used to customise the behaviour
 // as follow (these callbacks are in file custom.low.power.vsp.uart.bridge.sb ):-
 //
-//  OnInitGPIO() 
+//  OnInitGPIO()
 //    --Called very early on startup AFTER the Uart has been opened
 //
-//  OnStartupDone() 
+//  OnStartupDone()
 //    --Called when startup is done
 //
-//  OnAdvertStart() 
+//  OnAdvertStart()
 //    --Called after adverts have been started
 //
-//  OnAdvertStopped() 
+//  OnAdvertStopped()
 //    --Called after adverts have been stopped ( when connection happens )
 //
-//  OnUartClosing(fConn) 
+//  OnUartClosing(fConn)
 //    --Called just before uart is to be closed because of no activity.
 //    -- Return 0 to allow, otherise time in msec to extend the timer
 //    -- If the exten value is negative, then default UART_IDLE_TIMEOUT_MS used
 //
-//  OnUartClose() 
+//  OnUartClose()
 //    --Called after uart is actually closed
 //
-//  OnUartOpen(fConn) 
-//    --Called on uart is opened. 
+//  OnUartOpen(fConn)
+//    --Called on uart is opened.
 //    -- The fConn==0 when no connection, and 1 when in a BLE connected state
 //
 //  OnUartRxNoConn(byref uartRx$)
 //    --Called when uart data has arrived when there is no connection
 //                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 //
-//  OnConnect(hConn,intrvl,sprvto,slat) 
-//    --Called on connection 
+//  OnConnect(hConn,intrvl,sprvto,slat)
+//    --Called on connection
 //            hConn  = the connection handle
 //            intrvl = connection interval in microseconds
 //            sprvto = link supervision timeout in microseconds
 //            slat   = slave latency
 //
 //  OnConnParmChange(hConn,intrvl,sprvto,slat)
-//    --Called on conn parm change 
+//    --Called on conn parm change
 //            hConn  = the connection handle
 //            intrvl = connection interval in microseconds
 //            sprvto = link supervision timeout in microseconds
 //            slat   = slave latency
 //
-//  OnDisconnection(hConn)  
+//  OnDisconnection(hConn)
 //    --Called on disconnection, the connection handle can be found in hVspConn
 //
 // Examination of the messages shows that the character ! is used when there is
 // no ble connection and the character ^ is ised when there is a connection so
 // a useful way to infer connection status.
 // Also \n is the linefeed chr (0x0A) and \r is the carriage return chr (0x0D)
-// 
+//
 // Warning: An incmoming uart character will result in the uart being opened
 // automatically and that character will be lost, unless the baudate is very low
 //
@@ -104,19 +104,19 @@
 // character or a uart_break.
 //                ^^^^^^^^^^
 // It is recommended that if a sacrificial character is sent then it be one of the
-// following values :- 
+// following values :-
 //   0x00, 0x80, 0xC0, 0xE0, 0xF0, 0xF8, 0xFC, 0xFE
 // Because it will result in a single low to high transition and so NOT result
 // in any extraneous random data from being received.
-// 
+//
 // -----------------------------------
 // Option 2 (Use CTS input)
 // -----------------------------------
-// Change UART_REOPEN_SIONUM to the pin number for the UART_CTS line and the 
+// Change UART_REOPEN_SIONUM to the pin number for the UART_CTS line and the
 // value for UART_REOPEN_STATE_CHANGE to UART_REOPEN_TRANSITION_HI_to_LO.
 // Then the uart host can deassert and reassert its RTS output line to force
 // the module to open the uart.
-// 
+//
 //******************************************************************************
 
 //******************************************************************************
@@ -130,7 +130,7 @@
 //             stops and then the next blocks only came after sending some
 //             characters to trigger the next block. Fixed by adding the event
 //             EVVSPTXEMEPTY to keep the pump primed.
-//  - Enhancement : 
+//  - Enhancement :
 //             When the uart is closed, the state of the RTS line is specified
 //             via the UART_RTS_STATE_ON_CLOSE in the custom file and that
 //             is now set for 1 so that when uart is closed the peer's CTS
@@ -143,7 +143,7 @@
 //v1.20 (13 Jun 2017)
 //  - Improved customisation so that customer does not need to alter this file
 //    but the customisation one
-//  - Added the OnConnParmChange callback 
+//  - Added the OnConnParmChange callback
 //
 //v1.10 (31 May 2017)
 //  Improved the wakeup and callback mechanism
@@ -164,7 +164,7 @@
 //******************************************************************************
 
 //                                                  -----
-//These are the SIO pin numbers for the uart on the BL654
+//These are the SIO pin numbers for the uart on the BL653
 //                                                  ^^^^^
 #define UART_SIONUM_RX                                8
 #define UART_SIONUM_CTS                               7
@@ -285,12 +285,12 @@ endsub
 //------------------------------------------------------------------------------
 function UartCloseConditional()
   dim fClosed : fClosed=0
-  
+
   if UartInfo(0) then
     //Uart is open so try to close it if rx/tx ring buffers are empty
-    rc=UartCloseEx(1)    
+    rc=UartCloseEx(1)
   endif
-  
+
   if UartInfo(0) then
     //the uart is still open so restart the time
     TimerStart(STATE_TIMER,UART_IDLE_REPOLL_TIMEOUT_MS,0)
@@ -306,10 +306,10 @@ function UartCloseConditional()
       #cmpif 0x00000003 : AssertRC(rc, 3670)
     rc=GpioAssignEvent(UART_GPIO_ASSIGN_CHANNEL, UART_REOPEN_SIONUM, UART_REOPEN_STATE_CHANGE)
       #cmpif 0x00000003 : AssertRC(rc, 3680)
-      
+
     fClosed = 1
-    OnUartClose()  //Do your custom stuff in this function 
-  endif  
+    OnUartClose()  //Do your custom stuff in this function
+  endif
 endfunc fClosed
 
 //------------------------------------------------------------------------------
@@ -318,7 +318,7 @@ endfunc fClosed
 //------------------------------------------------------------------------------
 sub UartReOpen()
   if UartInfo(0)==0 then
-    //Uart was actually closed  
+    //Uart was actually closed
 
     //Free up the level transition detection
     rc=GpioUnAssignEvent(UART_GPIO_ASSIGN_CHANNEL)
@@ -326,15 +326,15 @@ sub UartReOpen()
     //Open the uart
     rc=UartOpen(UART_BAUDRATE,UART_TX_BUFLEN,UART_RX_BUFLEN,"CN81H")
       #cmpif 0x00000003 : AssertRC(rc, 3870)
-      
+
     if hVspConn == INVALID_CONN_HANDLE then
-      OnUartOpen(0)  //Do your custom stuff in this function 
+      OnUartOpen(0)  //Do your custom stuff in this function
     else
-      OnUartOpen(1)  //Do your custom stuff in this function 
+      OnUartOpen(1)  //Do your custom stuff in this function
     endif
-          
-  endif  
-  
+
+  endif
+
   //Start the uart inactivity timer
   TimerStart(STATE_TIMER,idleTimeoutMs,0)
 endsub
@@ -357,7 +357,7 @@ sub AdvertsStop()
     rc=BleAdvertStop()
     #cmpif 0x00000003 : AssertRC(rc, 4080)
     #cmpif 0x00000004 : DbgMsg("Adverts Stopped")
-    OnAdvertStopped()  //Do your custom stuff in this function 
+    OnAdvertStopped()  //Do your custom stuff in this function
   endif
 endsub
 
@@ -372,14 +372,14 @@ sub AdvertsStart()
       #cmpif 0x00000003 : AssertRC(rc, 4220)
       #cmpif 0x00000004 : DbgMsg("Vsp Adverts Started")
   endif
-  OnAdvertStart()  //Do your custom stuff in this function 
+  OnAdvertStart()  //Do your custom stuff in this function
 endsub
 
 
 //------------------------------------------------------------------------------
 //------------------------------------------------------------------------------
 sub InitGPIO()
-  OnInitGpio()  //Do your custom stuff in this function 
+  OnInitGpio()  //Do your custom stuff in this function
 endsub
 
 //------------------------------------------------------------------------------
@@ -403,13 +403,13 @@ sub InitAndConfigAdv()
   dim advRpt$,scnRpt$
   rc = BleAdvRptInit(advRpt$, AD_FLAGS, APPEARANCE, MAX_DEVICENAME_LEN_IN_ADVERTS)
     #cmpif 0x00000003 : AssertRC(rc, 4550)
-  
-  rc = BleScanRptInit(scnRpt$) 
+
+  rc = BleScanRptInit(scnRpt$)
     #cmpif 0x00000003 : AssertRC(rc, 4580)
-  
+
   rc = BleAdvRptAddUuid128(advRpt$, hVspUuid)
     #cmpif 0x00000003 : AssertRC(rc, 4610)
-  
+
   rc = BleAdvRptsCommit(advRpt$, scnRpt$)
     #cmpif 0x00000003 : AssertRC(rc, 4640)
 endsub
@@ -418,17 +418,17 @@ endsub
 //------------------------------------------------------------------------------
 sub _OnConnect(hConn)
   dim intrvl,sprvto,slat
-  
+
   hVspConn = hConn
-  
+
   UartReOpen()
-  
+
   NewState(STATE_CONN_UART_OPEN)
-  
-  OnAdvertStopped() //Do your custom stuff in this function 
-  
+
+  OnAdvertStopped() //Do your custom stuff in this function
+
   rc = BleGetCurConnParms(hConn,intrvl,sprvto,slat)
-  
+
   OnConnect(hConn,intrvl,sprvto,slat)
   //Start the uart inactivity timer
   TimerStart(STATE_TIMER,idleTimeoutMs,0)
@@ -437,15 +437,15 @@ endsub
 //------------------------------------------------------------------------------
 //------------------------------------------------------------------------------
 sub _OnConnParmChg(hConn)
-  dim intrvl,sprvto,slat  
+  dim intrvl,sprvto,slat
   rc = BleGetCurConnParms(hConn,intrvl,sprvto,slat)
-  if rc==0 then  
+  if rc==0 then
     UartReOpen()
     OnConnParmChange(hConn,intrvl,sprvto,slat)
     //Start the uart inactivity timer
-    TimerStart(STATE_TIMER,idleTimeoutMs,0)        
+    TimerStart(STATE_TIMER,idleTimeoutMs,0)
     //Change state - destination is same from both places
-    NewState(STATE_CONN_UART_OPEN)    
+    NewState(STATE_CONN_UART_OPEN)
   endif
 endsub
 
@@ -468,7 +468,7 @@ endsub
 //------------------------------------------------------------------------------
 function HndlrTmrState()
   dim nTmrExtMsec
-  
+
   //If in the meantime the timer was restarted do nothing
   if TimerRunning(STATE_TIMER) == 0 then
     //timer was not restarted so action this
@@ -480,9 +480,9 @@ function HndlrTmrState()
 
     case STATE_CONN_UART_OPEN
       //Start state timer
-      nTmrExtMsec=OnUartClosing(1) 
+      nTmrExtMsec=OnUartClosing(1)
       StateTmrOnTimeout(nTmrExtMsec,STATE_CONN_UART_CLOSE)
-      
+
     case STATE_IDLE_UART_CLOSE,STATE_CONN_UART_CLOSE
       //the buffers have to empty and transmit register should be empty too
       if UartCloseConditional() then
@@ -508,7 +508,7 @@ function HndlrUartRx()
       StrShiftLeft(uartRecBuf$,dontcare)
       dontcare = UARTReadN(uartRecBuf$, MAX_UART_READ_LEN)
     endwhile
-    
+
   case STATE_IDLE_UART_CLOSE
     UartReOpen()
     NewState(STATE_IDLE_UART_OPEN)
@@ -519,20 +519,20 @@ function HndlrUartRx()
       StrShiftLeft(uartRecBuf$,dontcare)
       dontcare = UARTReadN(uartRecBuf$, MAX_UART_READ_LEN)
     endwhile
-    
+
   case STATE_CONN_UART_CLOSE
     UartReOpen()
     NewState(STATE_CONN_UART_OPEN)
     //Pass data between UART and VSP service
     BleVspUartBridge()
-    
+
   case STATE_CONN_UART_OPEN
     //Pass data between UART and VSP service
     BleVspUartBridge()
-    
+
   case else
   endselect
-  
+
   //Start the uart inactivity timer
   TimerStart(STATE_TIMER,idleTimeoutMs,0)
 endfunc 1
@@ -547,14 +547,14 @@ function HndlrVspRx()
     NewState(STATE_CONN_UART_OPEN)
     //Pass data between UART and VSP service
     BleVspUartBridge()
-    
+
   case STATE_CONN_UART_OPEN
     //Pass data between UART and VSP service
     BleVspUartBridge()
-    
+
   case else
   endselect
-  
+
   //Start the uart inactivity timer
   TimerStart(STATE_TIMER,idleTimeoutMs,0)
 endfunc 1
@@ -596,7 +596,7 @@ function HndlrBleMsg(nMsgId, nCtx)
     //There has been a change in the connection parameters
     _OnConnParmChg(nCtx)
 
-  case else        
+  case else
     #cmpif 0x00000004 : DbgMsgVal("Unprocessed nMsgId",nMsgId)
   endselect
 endfunc 1
@@ -608,16 +608,16 @@ function HndlrDisCon(hndl as integer, rsn as integer)
   #cmpif 0x00000004 : DbgMsg("Disconnect")
 
   UartReOpen()
-  
-  OnDisconnection(hndl) //Do your custom stuff in this function 
+
+  OnDisconnection(hndl) //Do your custom stuff in this function
 
   hVspConn = INVALID_CONN_HANDLE
 
   NewState(STATE_IDLE_UART_OPEN)
-  
+
   //Start Adverts
   AdvertsStart()
-endfunc 1  
+endfunc 1
 
 //------------------------------------------------------------------------------
 //------------------------------------------------------------------------------
@@ -627,13 +627,13 @@ function HndlrUartTxEmpty()
     //Start the uart inactivity timer
     TimerStart(STATE_TIMER,UART_MAX_CHARACTER_TIMEOUT_MS,0)
     //remain in this state
-  
+
   case STATE_CONN_UART_OPEN
     //Pass data between UART and VSP service
     BleVspUartBridge()
     //Start the uart inactivity timer
     TimerStart(STATE_TIMER,idleTimeoutMs,0)
-    
+
   case else
   endselect
 endfunc 1
@@ -642,7 +642,7 @@ endfunc 1
 //------------------------------------------------------------------------------
 function HndlrDetectPinRx()
   UartReOpen()
-  
+
   select curState
   case STATE_IDLE_UART_CLOSE
     //Start the uart inactivity timer

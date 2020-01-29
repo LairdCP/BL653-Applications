@@ -139,7 +139,7 @@ ONEVENT EVBLE_PHY_REQUEST  CALL HandlerPhyReq     // PHY change request
 
 //Start advertising
 rc=BleAdvertStart(0,addr$,100,0,0)
-print "\nMake a connection to the BL654"
+print "\nMake a connection to the BL653"
 
 //------------------------------------------------------------------------------
 // Wait for a synchronous event.

@@ -24,7 +24,7 @@
 // Virtual Serial Port "External" Loopback app
 // Instructions:
 // - Run the app by entering the app name "upass<cr>"
-// - The module will start advertising a serial port service. 
+// - The module will start advertising a serial port service.
 // - if you rename this application as "$autorun$" , it will run automatical after every power cycle or reset providing the autorun jumper is set
 // - Connect to the devkit and start sending data. If you bridge TX&RX, CTS&RTS on the dev board, any data received are looped back by
 //   this app i.e. all data received are sent back to the central unit.
@@ -55,7 +55,7 @@
 #define DEVICENAME_WRITABLE                  1
 #define APPEARANCE                           BLE_APPEARANCE_GENERIC_TAG
 #define MANF_NAME                            "Laird Connectivity"
-#define MODELSTR                             "BL654"
+#define MODELSTR                             "BL653"
 #define SERIALNUM                            "12345"
 #define HWREV                                "HwRev1.0"
 #define SWREV                                "SwRev1.0"
@@ -91,8 +91,8 @@
         //Effective Conn interval will be (SLAVE_LATENCY+1)*ACTUAL_CONN_INTERVAL
 #define SLAVE_LATENCY                        0
         //Connection supervisory timeout (4 seconds) - max 32 seconds
-//#define CONN_SUP_TIMEOUT                     500000 
-#define CONN_SUP_TIMEOUT                     10000000 
+//#define CONN_SUP_TIMEOUT                     500000
+#define CONN_SUP_TIMEOUT                     10000000
         //DiscoverableMode, set to BLE_DISCOVERABILITY_xxx
 #define DISCOVERY_MODE                       BLE_DISCOVERABILITY_GENERAL
 #define MAX_DEVNAME_CHRS                     10
@@ -255,7 +255,7 @@
 #define BLE_EVBLEMSGID_ENCRYPTED                       18 //msgCtx = connection handle
 #define BLE_EVBLEMSGID_POWER_FAILURE_WARNING           19 //msgCtx = current supply voltage
 #define BLE_EVBLEMSGID_UNENCRYPTED                     20 //msgCtx = connection handle
-#define BLE_EVBLEMSGID_DEVICENAME_WRITE                21 //msgCtx = connection handle 
+#define BLE_EVBLEMSGID_DEVICENAME_WRITE                21 //msgCtx = connection handle
 
 //BLE Alert Levels
 #define BLE_ALERT_LEVEL_NO_ALERT                        0
