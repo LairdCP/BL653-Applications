@@ -22,7 +22,6 @@
 //    + AT+GCTM command enabled to query peer's gatt table schema             ++
 //    + If error handler called then module will reset and restart            ++
 //    + Long Range Connection capability enabled                              ++
-//    + Low Power Uart operation - port closed when there is no activity      ++
 // ************************************************************************** ++
 //                                                                            ++
 // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -61,7 +60,8 @@
 // Compiler/Debug options
 //******************************************************************************
 //The following is the 'as-deployed' to customer setting
-#set $cmpif, 0x00760000  //see $LIB$.AT.interface.sb for bitmask description
+//#set $cmpif, 0x00960FFF //see $LIB$.AT.interface.sb for bitmask description
+#set $cmpif, 0x0096000F //see $LIB$.AT.interface.sb for bitmask description
 
 //******************************************************************************
 // Definitions
@@ -112,7 +112,7 @@
 //******************************************************************************
 // Initialisation values for sregister caches ...
 //
-// These values are created by running the application "sreg.defaults.creation.xxxx.sb"
+// These values are created by running the application "sreg.defaults.creation.XXXX.sb"
 // and then copy/pasting it's output here - verbatim.
 //
 // This technique is used to reduce the size of the .uwc file of the main sb file
