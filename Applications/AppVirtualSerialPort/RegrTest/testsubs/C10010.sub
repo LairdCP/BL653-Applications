@@ -30,9 +30,9 @@ SUBTITLE "Test:[vFileName].1: TxPowerConfigID"
 //:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 SET vArg0 "1"   //ID
-SET vArg1 "4"   //Default Value
+SET vArg1 "8"   //Default Value
 SET vArg2 "-20"   //Min Value
-SET vArg3 "4"   //Max Value
+SET vArg3 "8"   //Max Value
 #include "CheckCfgKeyInt.sbr"  //Check Integer Config Key validation
 
 

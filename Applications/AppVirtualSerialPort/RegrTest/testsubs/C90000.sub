@@ -100,7 +100,7 @@ WAITRESPEX 5000 [vPortS] "[cATI0]"
 WAITRESPEX 5000 [vPortS] "\n00\r"
 
 SENDCMD [vPortS] "AT&F*\r"
-WAITRESPEX 5000 [vPortS] "\n00\r"
+WAITRESPEX 7000 [vPortS] "\n00\r"
 
 PRINT "************************************************************"
 PRINT "** DUT has no application - needs to be reloaded manually **"
