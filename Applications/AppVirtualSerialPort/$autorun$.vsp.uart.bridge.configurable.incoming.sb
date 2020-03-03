@@ -887,7 +887,7 @@ endfunc isValid
 // Valid keyID values are 0 to (CONFIG_KEY_ID_MAX_NUM-1)
 // returns 0 if successful, 1 invalid key, 2 invalid value, 3 if NvRecordSet fails
 //------------------------------------------------------------------------------
-function ConfigKeySet(keyID as integer, newVal as integer)as integer
+function ConfigKeySet(keyID as integer, newVal as integer) as integer
     dim tmpStr$
 
     if (keyID<0)||(keyID>=CONFIG_KEY_ID_MAX_NUM) then
