@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2017, Laird
+// Copyright (c) 2014-2017, Laird Connectivity
 //
 // Permission to use, copy, modify, and/or distribute this software for any
 // purpose with or without fee is hereby granted, provided that the above
@@ -421,10 +421,10 @@
 //    - Security Manager related
 //    - This will result in BleSecMngrIoCap() being called
 //    - valid values for #INTiocap# are
-//         0     None also known as ‘Just Works’ (unauthenticated pairing)
+//         0     None also known as ï¿½Just Worksï¿½ (unauthenticated pairing)
 //         1     Display with Yes/No input capability (authenticated pairing)
 //         2     Keyboard Only (authenticated pairing)
-//         3     Display Only (authenticated pairing – if other end has input cap)
+//         3     Display Only (authenticated pairing ï¿½ if other end has input cap)
 //         4     Keyboard only (authenticated pairing)
 //
 // -----------------------------------------------------------------------------
