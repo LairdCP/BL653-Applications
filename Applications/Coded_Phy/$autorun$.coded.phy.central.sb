@@ -25,12 +25,12 @@
 //******************************************************************************
 
 //This is the target Bluetooth device to connect to, 7 bytes in hex
-#define BTAddr "000016A4B75404"
+#define BTAddr "000016A40F1029"
 
 //******************************************************************************
 // Definitions
 //******************************************************************************
-#define BLE_TX_POWER                    8 // Possible values are 8, 7, 6, 5, 4, 3, 2, 0, -4, -8, -12, -16, -20dBm
+#define BLE_TX_POWER                    -40 // Possible values are 8, 7, 6, 5, 4, 3, 2, 0, -4, -8, -12, -16, -20, -40dBm
 
 #define BLE_1M_PHY                      1
 #define BLE_2M_PHY                      2
@@ -48,6 +48,7 @@
 // Global Variable Declarations
 //******************************************************************************
 dim rc                              //Result code
+dim powval
 dim ConnectionID                    //Ble Connection Handle
 dim Mode : Mode = 0                 //Current program mode: 0 = connecting, 1 = connected, find modem in characteristic, 2 = find modem out characteristic, 3 = find RX characteristic, 4 = find TX characteristic, 5 = find modem out descriptor, 6 = find TX descriptor, 7 = enable modem out notIFications, 8 = enable TX, 9 = enable modem in status
 dim MIHandle                        //Modem In handle (IF one exists)
@@ -338,7 +339,8 @@ UartClose()
 rc = UartOpen(115200, 2048, 2048, "CN81H")
 
 rc=BleTxPowerSet(BLE_TX_POWER)
-
+powval=BleExtRptMetadata(metadata$,6)
+	print "TX power "BLE_TX_POWER RC" = ";powval;"\n"
 // Enable High bandwidth which is needed for CODED Phy
 rc = EnableHighBandwidth()
 
