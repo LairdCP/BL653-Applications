@@ -32,7 +32,7 @@
         //The temperature sensor is polled this timeout
 #define TEMPERATURE_POLL_MS     (2000)
 
-  //SIO that the temperature sensor is connected to
+        //SIO that the temperature sensor is connected to
 #define GPIO_TEMP_SENSOR        3
 
 //******************************************************************************
