@@ -65,7 +65,7 @@ FUNCTION HndlrCharHvc(BYVAL charHandle AS INTEGER) AS INTEGER
 ENDFUNC 1
 
 //==============================================================================
-// Handler to service button 0 pressed
+// Handler to service button 1 pressed
 //==============================================================================
 FUNCTION HndlrBtn1Pr() AS INTEGER
     CloseConnections()
