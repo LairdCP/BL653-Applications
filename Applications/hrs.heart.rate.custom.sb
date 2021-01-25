@@ -1468,6 +1468,18 @@ function HandlerBleAuthkey(BYVAL Conn, BYVAL Type, BYVAL Flags)
     PRINT "Auth Key Request, Handle: ";integer.h'Conn;", Type: ";Type;"\n"
 endfunc 1
 
+//==============================================================================
+// This handler is called when a device attempts to bond with a private
+// resolvable/non-resolvable address and overwrite an existing bond of a
+// public/random address
+//==============================================================================
+function HandlerBleOverwriteBond(BYVAL Conn, BYVAL Flags, BYVAL Address$)
+    //Note that this sample application will accept any bond overwrite as it is a sample application only. This behavior should not exist in real life/world applications
+    dim rc
+    PRINT "Bond overwritten, Handle: ";integer.h'Conn;", Flags: ";integer.h'Flags;", Address: ";strhexize$(Address$);"\n"
+    rc = BleOverwriteBond(Conn, 1)
+endfunc 1
+
 //******************************************************************************
 // Equivalent to main() in C
 //******************************************************************************
@@ -1485,6 +1497,8 @@ OnEvent  EVBLE_PHY_REQUEST   call HandlerPhyReq
 
 OnEvent  EVBLE_PASSKEY       call HandlerBlePasskey
 OnEvent  EVBLE_AUTHKEY       call HandlerBleAuthkey
+
+OnEvent  EVBLEOVERWRITEBOND  call HandlerBleOverwriteBond
 
 //------------------------------------------------------------------------------
 // Initialise and then wait for events

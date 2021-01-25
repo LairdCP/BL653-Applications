@@ -1498,7 +1498,6 @@ sub SetupGPIOs()
     #cmpif 0x00000002 : if (DevID == BL653_DEV_ID) then
     #cmpif 0x00000002 :     rc = GPIOSetFunc(BL653GPIOLED3Pin, 2, 0)
     #cmpif 0x00000002 :     rc = GPIOSetFunc(BL653GPIOLED4Pin, 2, 0)
-    #cmpif 0x00000002 : endif
     #cmpif 0x00000002 : elseif (DevID == BL654_DEV_ID) then
     #cmpif 0x00000002 :     rc = GPIOSetFunc(BL654GPIOLED3Pin, 2, 0)
     #cmpif 0x00000002 :     rc = GPIOSetFunc(BL654GPIOLED4Pin, 2, 0)
