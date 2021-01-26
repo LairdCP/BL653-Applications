@@ -1,5 +1,5 @@
 // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-// Copyright (c) 2020, Laird Connectivity                                     ++
+// Copyright (c) 2021, Laird Connectivity                                     ++
 //                                                                            ++
 // Permission to use, copy, modify, and/or distribute this software for any   ++
 // purpose with or without fee is hereby granted, provided that the above     ++
@@ -37,11 +37,23 @@
 // -------------------
 // Application Version
 // -------------------
-#define AppVer                 "3.01"  //Application version (ATI33)
+#define AppVer                 "4.01"  //Application version (ATI33)
 //
 // -------------------
 // Application History
 // -------------------
+//
+//  4.01
+//    Fixed issue with upper case characters not being made lower case properly
+//    Updates with new smartBASIC events and messages from firmware 30.2.3.0
+//
+//  4.00
+//    Fixed issue with receive buffer becoming full without a newline character and preventing module operating
+//    Updates with new smartBASIC events and messages from firmware 30.2.2.0
+//    Change output of some functions to include connection handles
+//    Replace connection set aside limit configuration with event length configuration
+//    Added SReg 127 : CfgId_TransmissionBuffers
+//    Reformatted files
 //
 //  3.01
 //    Added OOB Pairing for non-vsp connections for BL654
@@ -71,7 +83,7 @@
 //The following can be modified by the customer to customise
 //==============================================================================
 #define ATI_RESPONSE_0                            "BL653"
-#define ATI_RESPONSE_10                           "Laird,(c)2018"
+#define ATI_RESPONSE_10                           "Laird Connectivity, (c) 2021"
 
 //Default device name
 #define DEFAULT_DEVICE_NAME                       "LAIRD BL653"
@@ -104,7 +116,7 @@
 #define SCANTYPE_USE_SCANEX_FUNC_BITMASK          b'0110
 
 //******************************************************************************
-// Import module specific defines maintained by Laird
+// Import module specific defines maintained by Laird Connectivity
 //******************************************************************************
 #include "$LIB$.defines.Common.sb"
 #include "$LIB$.defines.BL653.sb"
@@ -126,9 +138,9 @@
 #define SREGINIT_MIN8_0  "\00\D8\00\00\00\01\01\FC\00\FF\01\03\00\88\01\07\00\FF\01\80"
 #define SREGINIT_MAX8_0  "\7F\08\03\07\7F\1F\7F\04\03\2F\78\10\01\EC\14\10\01\2F\30\7F"
 //                  120+    0  1  2  3  4  5  6  7  8  9  0  1  2  3  4  5  6  7  8  9
-#define SREGINIT_VAL8_1  "\00\00\00\00\00\01\08\00\00\00\00\00\00\00\00\00\00\00\1D\1E"
-#define SREGINIT_MIN8_1  "\80\80\80\80\80\00\01\80\80\80\80\80\80\80\80\80\80\80\FF\FF"
-#define SREGINIT_MAX8_1  "\7F\7F\7F\7F\7F\01\0F\7F\7F\7F\7F\7F\7F\7F\7F\7F\7F\7F\1F\1F"
+#define SREGINIT_VAL8_1  "\00\00\00\00\00\01\08\06\00\00\00\00\00\00\00\00\00\00\1D\1E"
+#define SREGINIT_MIN8_1  "\80\80\80\80\80\00\01\01\80\80\80\80\80\80\80\80\80\80\FF\FF"
+#define SREGINIT_MAX8_1  "\7F\7F\7F\7F\7F\01\0F\06\7F\7F\7F\7F\7F\7F\7F\7F\7F\7F\1F\1F"
 //                  200+    0     1     2     3     4     5     6     7    8     9
 #define SREGINIT_VAL16_0 "\40\1F\FA\00\00\04\00\04\00\10\00\10\70\17\00\00\FA\00\00\02"
 #define SREGINIT_MIN16_0 "\E8\03\14\00\00\00\00\00\00\01\00\01\64\00\00\00\14\00\00\01"
@@ -141,10 +153,10 @@
 #define SREGINIT_VAL32_0 "\4C\1D\00\00\98\3A\00\00\00\C2\01\00\00\20\00\00\01\20\00\00"
 #define SREGINIT_MIN32_0 "\4C\1D\00\00\4C\1D\00\00\B0\04\00\00\01\00\00\00\01\00\00\00"
 #define SREGINIT_MAX32_0 "\1E\04\3D\00\1E\04\3D\00\40\42\0F\00\FF\FF\00\00\FF\FF\00\00"
-//                  300+    5           6           7           8          9
-#define SREGINIT_VAL32_1 "\03\20\00\00\02\20\00\00\98\3A\00\00\00\00\00\00\00\00\00\00"
-#define SREGINIT_MIN32_1 "\01\00\00\00\01\00\00\00\F4\01\00\00\00\00\00\80\00\00\00\80"
-#define SREGINIT_MAX32_1 "\FF\FF\00\00\FF\FF\00\00\A0\86\01\00\FF\FF\FF\7F\FF\FF\FF\7F"
+//                  305+    0           1           2           3          4
+#define SREGINIT_VAL32_1 "\03\20\00\00\02\20\00\00\0C\00\00\00\00\00\00\00\00\00\00\00"
+#define SREGINIT_MIN32_1 "\01\00\00\00\01\00\00\00\02\00\00\00\00\00\00\80\00\00\00\80"
+#define SREGINIT_MAX32_1 "\FF\FF\00\00\FF\FF\00\00\20\03\00\00\FF\FF\FF\7F\FF\FF\FF\7F"
 //------------------------------------------------------------------------------
 
 //******************************************************************************
