@@ -19,7 +19,7 @@
 // A smartBASIC application that exposes an AT Interface to control a VSP     ++
 // or non-VSP connection and advertise or scan that will run on the BL654     ++
 // module with the following features:-                                       ++
-//    + AT+GCTM command enabled to query peer's gatt table schema             ++
+//    + AT+GCTM command enabled to query peer's GATT table schema             ++
 //    + If error handler called then module will reset and restart            ++
 //    + Long Range Connection capability enabled                              ++
 // ************************************************************************** ++
@@ -36,11 +36,14 @@
 // -------------------
 // Application Version
 // -------------------
-#define AppVer                 "4.01"  //Application version (ATI33)
+#define AppVer                 "4.02"  //Application version (ATI33)
 //
 // -------------------
 // Application History
 // -------------------
+//
+//  4.02
+//    Changed to use 144-byte maximum message length.
 //
 //  4.01
 //    Fixed issue with upper case characters not being made lower case properly
@@ -55,7 +58,7 @@
 //    Reformatted files
 //
 //  3.01
-//    Added OOB Pairing for non-vsp connections for BL654
+//    Added OOB Pairing for non-VSP connections for BL654
 //
 //  3.00
 //    Released to support v29.6.4.0 BL654 FW
@@ -91,7 +94,7 @@
 //The following can be modified by the customer to customise - but with care
 //==============================================================================
 //Maximum allowable size of strings (1024 maximum (for BL653)
-#define MaxCmdStringSize                          255
+#define MaxCmdStringSize                          144
 
 //Maximum allowable size of the advertised device name (additional characters will be clipped off)
 //Do NOT set larger than 20
@@ -109,7 +112,7 @@
 //Valid range 2..8
 #define MAX_CONNECTIONS                           8
 
-//scanning bitmasks
+//Scanning bitmasks
 #define SCANTYPE_VSP_MODE                        (SCANTYPE_1MPHY+SCANTYPE_LECODED)
 #define SCANTYPE_ALL                              b'1111
 #define SCANTYPE_USE_SCANEX_FUNC_BITMASK          b'0110

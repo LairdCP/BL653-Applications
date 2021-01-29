@@ -19,10 +19,10 @@
 // A smartBASIC application that exposes an AT Interface to control a VSP     ++
 // or non-VSP connection and advertise or scan that will run on the BL653     ++
 // module with the following features:-                                       ++
-//    + AT+GCTM command enabled to query peer's gatt table schema             ++
+//    + AT+GCTM command enabled to query peer's GATT table schema             ++
 //    + If error handler called then module will reset and restart            ++
 //    + Long Range Connection capability enabled                              ++
-//    + Low Power Uart operation - port closed when there is no activity      ++
+//    + Low Power UART operation - port closed when there is no activity      ++
 // ************************************************************************** ++
 //                                                                            ++
 // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -37,11 +37,14 @@
 // -------------------
 // Application Version
 // -------------------
-#define AppVer                 "4.01"  //Application version (ATI33)
+#define AppVer                 "4.02"  //Application version (ATI33)
 //
 // -------------------
 // Application History
 // -------------------
+//
+//  4.02
+//    Changed to use 144-byte maximum message length.
 //
 //  4.01
 //    Fixed issue with upper case characters not being made lower case properly
