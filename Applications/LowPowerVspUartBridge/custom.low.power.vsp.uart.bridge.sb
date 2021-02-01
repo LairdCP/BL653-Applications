@@ -1,5 +1,5 @@
 // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-// Copyright (c) 2020, Laird Connectivity                                                  ++
+// Copyright (c) 2021, Laird Connectivity                                     ++
 //                                                                            ++
 // Permission to use, copy, modify, and/or distribute this software for any   ++
 // purpose with or without fee is hereby granted                              ++
@@ -258,11 +258,11 @@ sub OnStartupDone()
   //*** USING LED2 to indicate state of BLE connection (ON for connected)
   //**************************************************************************
   rc=gpiosetfunc(13,2,0)  //Sets LED 1 to digital out low
-    #cmpif 0x00000003 : AssertRC(rc, 50950)
+    #cmpif 0x00000003 : AssertRC(rc, 261)
   rc=gpiosetfunc(14,2,0)  //Sets LED 2 to digital out low
-    #cmpif 0x00000003 : AssertRC(rc, 50970)
+    #cmpif 0x00000003 : AssertRC(rc, 263)
   rc=gpiosetfunc(3,2,0)   //Disables the temperature sensor
-    #cmpif 0x00000003 : AssertRC(rc, 50990)
+    #cmpif 0x00000003 : AssertRC(rc, 265)
   //**************************************************************************
 
 endsub

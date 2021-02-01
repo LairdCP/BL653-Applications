@@ -1,5 +1,5 @@
 // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-// Copyright (c) 2020, Laird Connectivity                                                  ++
+// Copyright (c) 2021, Laird Connectivity                                     ++
 //                                                                            ++
 // Permission to use, copy, modify, and/or distribute this software for any   ++
 // purpose with or without fee is hereby granted                              ++
@@ -37,7 +37,7 @@
 // There is a state machine that this application maintains to manage this optimised
 // operation and to ensure that host connected to the uart can follow it, various
 // functions (callbacks) are called that can be used to customise the behaviour
-// as follow (these callbacks are in file custom.low.power.vsp.uart.bridge.sb ):-
+// as follow (these callbacks are in file custom.low.power.vsp.uart.bridge.sb):-
 //
 //  OnInitGPIO()
 //    --Called very early on startup AFTER the Uart has been opened
@@ -49,7 +49,7 @@
 //    --Called after adverts have been started
 //
 //  OnAdvertStopped()
-//    --Called after adverts have been stopped ( when connection happens )
+//    --Called after adverts have been stopped (when connection happens)
 //
 //  OnUartClosing(fConn)
 //    --Called just before uart is to be closed because of no activity.
@@ -263,7 +263,7 @@ dim idleTimeoutMs
 //------------------------------------------------------------------------------
 // Change state
 //------------------------------------------------------------------------------
-sub NewState( nState )
+sub NewState(nState)
   if nState != curState then
     #cmpif 0x00000004 : sprint #dbgmsg$, "NewState = "; nState
     #cmpif 0x00000004 : DbgMsg(dbgmsg$)
@@ -288,15 +288,15 @@ function UartCloseConditional()
   else
     //closed, so configure the TX and RTS as outputs and adjust outputs
     rc=gpiosetfunc(UART_SIONUM_TX,2,1)   //TX - set high on default
-      #cmpif 0x00000003 : AssertRC(rc, 3620)
+      #cmpif 0x00000003 : AssertRC(rc, 291)
     rc=gpiosetfunc(UART_SIONUM_RTS,2,UART_RTS_STATE_ON_CLOSE)   //Adjust RTS state on closure
-      #cmpif 0x00000003 : AssertRC(rc, 3640)
+      #cmpif 0x00000003 : AssertRC(rc, 293)
     rc=GpioSetFunc(UART_SIONUM_RX,1,2)   //RX  - Pull high input & irq on hi2lo transition
-      #cmpif 0x00000003 : AssertRC(rc, 3660)
+      #cmpif 0x00000003 : AssertRC(rc, 295)
     rc=GpioSetFunc(UART_SIONUM_CTS,1,1)  //CTS  - Pull low input & irq on lo2hi transition
-      #cmpif 0x00000003 : AssertRC(rc, 3670)
+      #cmpif 0x00000003 : AssertRC(rc, 297)
     rc=GpioAssignEvent(UART_GPIO_ASSIGN_CHANNEL, UART_REOPEN_SIONUM, UART_REOPEN_STATE_CHANGE)
-      #cmpif 0x00000003 : AssertRC(rc, 3680)
+      #cmpif 0x00000003 : AssertRC(rc, 299)
 
     fClosed = 1
     OnUartClose()  //Do your custom stuff in this function
@@ -313,10 +313,10 @@ sub UartReOpen()
 
     //Free up the level transition detection
     rc=GpioUnAssignEvent(UART_GPIO_ASSIGN_CHANNEL)
-      #cmpif 0x00000003 : AssertRC(rc, 3840)
+      #cmpif 0x00000003 : AssertRC(rc, 316)
     //Open the uart
     rc=UartOpen(UART_BAUDRATE,UART_TX_BUFLEN,UART_RX_BUFLEN,"CN81H")
-      #cmpif 0x00000003 : AssertRC(rc, 3870)
+      #cmpif 0x00000003 : AssertRC(rc, 319)
 
     if hVspConn == INVALID_CONN_HANDLE then
       OnUartOpen(0)  //Do your custom stuff in this function
@@ -346,7 +346,7 @@ sub AdvertsStop()
   #cmpif 0x00000004 : DbgMsg("Called AdvertsStop()")
   if IsAdvertising() then
     rc=BleAdvertStop()
-    #cmpif 0x00000003 : AssertRC(rc, 4080)
+    #cmpif 0x00000003 : AssertRC(rc, 349)
     #cmpif 0x00000004 : DbgMsg("Adverts Stopped")
     OnAdvertStopped()  //Do your custom stuff in this function
   endif
@@ -360,7 +360,7 @@ sub AdvertsStart()
 
   if IsAdvertising()==0 then
     rc = BleAdvertStart(ADVERT_TYPE, addr$, ADV_INTERVAL_MS, ADV_TIMEOUT_MS, 0)
-      #cmpif 0x00000003 : AssertRC(rc, 4220)
+      #cmpif 0x00000003 : AssertRC(rc, 363)
       #cmpif 0x00000004 : DbgMsg("Vsp Adverts Started")
   endif
   OnAdvertStart()  //Do your custom stuff in this function
@@ -378,14 +378,14 @@ endsub
 sub InitGapService()
   dim dn$ : dn$=DEVICENAME
   rc=BleGapSvcInit(dn$, DEVICENAME_WRITABLE, APPEARANCE, MIN_CONN_INTERVALus, MAX_CONN_INTERVALus, CONN_SUP_TIMEOUTus, SLAVE_LATENCY)
-    #cmpif 0x00000003 : AssertRC(rc, 4400)
+    #cmpif 0x00000003 : AssertRC(rc, 381)
 endsub
 
 //------------------------------------------------------------------------------
 //------------------------------------------------------------------------------
 sub InitAndConfigVsp()
   rc = BleVspOpen(VSP_TX_BUFLEN, VSP_RX_BUFLEN, 0, hVspUuid)
-    #cmpif 0x00000003 : AssertRC(rc, 4470)
+    #cmpif 0x00000003 : AssertRC(rc, 388)
 endsub
 
 //------------------------------------------------------------------------------
@@ -393,16 +393,16 @@ endsub
 sub InitAndConfigAdv()
   dim advRpt$,scnRpt$
   rc = BleAdvRptInit(advRpt$, AD_FLAGS, APPEARANCE, MAX_DEVICENAME_LEN_IN_ADVERTS)
-    #cmpif 0x00000003 : AssertRC(rc, 4550)
+    #cmpif 0x00000003 : AssertRC(rc, 396)
 
   rc = BleScanRptInit(scnRpt$)
-    #cmpif 0x00000003 : AssertRC(rc, 4580)
+    #cmpif 0x00000003 : AssertRC(rc, 399)
 
   rc = BleAdvRptAddUuid128(advRpt$, hVspUuid)
-    #cmpif 0x00000003 : AssertRC(rc, 4610)
+    #cmpif 0x00000003 : AssertRC(rc, 402)
 
   rc = BleAdvRptsCommit(advRpt$, scnRpt$)
-    #cmpif 0x00000003 : AssertRC(rc, 4640)
+    #cmpif 0x00000003 : AssertRC(rc, 405)
 endsub
 
 //------------------------------------------------------------------------------
@@ -442,7 +442,7 @@ endsub
 
 //------------------------------------------------------------------------------
 //------------------------------------------------------------------------------
-sub StateTmrOnTimeout( nTmrExtMsec, nextState )
+sub StateTmrOnTimeout(nTmrExtMsec, nextState)
   if nTmrExtMsec<UART_IDLE_TIMEOUT_MS then
     nTmrExtMsec = UART_IDLE_TIMEOUT_MS
   endif

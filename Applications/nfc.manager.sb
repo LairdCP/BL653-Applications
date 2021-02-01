@@ -874,7 +874,7 @@ function _NFC()
             else
                 rc = 0
             endif
-            AssertRC(rc, 1)
+            AssertRC(rc, 877)
             q = q+1
         endwhile
 

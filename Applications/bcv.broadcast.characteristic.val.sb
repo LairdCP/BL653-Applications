@@ -109,7 +109,7 @@ sub MakeAdvertRpts()
     AssertRC(rc, 109)
 
     rc=BleEncodeFloat(tempVal$, TEMP_MANTISSA, TEMP_EXPONENT, 2)   //Encode temp (342 * 10^-1) as float from index 2 in tempVal$
-    AssertRC(rc, 111)
+    AssertRC(rc, 112)
     //Append temperature value to the advert report
     rc=BleAdvRptAppendAD(advRpt$, BLE_CHARVAL_AD_TAG, tempVal$)
     AssertRC(rc, 115)

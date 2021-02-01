@@ -136,7 +136,7 @@ print "\n\nSupply voltage is ";mv;"mV\n"
 
 mv=2700
 rc=SetPwrSupplyThreshMv(mv)
-AssertRC(rc, 313)
+AssertRC(rc, 139)
 
 print "\nWaiting for power supply to fall below ";mv;"mV"
 
