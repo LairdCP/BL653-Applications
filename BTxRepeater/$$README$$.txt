@@ -29,10 +29,10 @@ S130=0
 The folder contains many smartBASIC source code files which end with the
 extension ".sb"
 
-For BL653, use with file "$autorun$.BTx10.repeater.BL653.sb"
+For BL653, use with file "$autorun$.BTx.repeater.BL653.sb"
 
 Note that there is insufficient flash space on the BL653 module for
-$autorun$.BTx10.gateway.parsed.debug.sb and $autorun$.BTx10.repeater.debug.sb
+$autorun$.BTx.gateway.parsed.debug.sb and $autorun$.BTx.repeater.debug.sb
 If these files are needed, they can be loaded on to a BL654.
 
 An application is downloaded to a module using a free Laird utility called
